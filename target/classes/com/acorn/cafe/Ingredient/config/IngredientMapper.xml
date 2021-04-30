@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.cafe.Ingredient.config.IngredientMapper">
+ 
+ 
+     <select id="selectAll" resultType="IngredientDTO"
+    parameterType="string">
+         select id, name, quantity, price,unit, partner
+         from Ingredient
+        order by id
+    </select>
+
+    <delete id="ingredientDel" parameterType="int">
+        delete
+        from Ingredient
+        where id = #{num}
+    </delete>
+
+    <update id="updateIngredient" parameterType="int">
+        update ingredient
+        set name =#{name} , quantity=#{quantity}, price=#{price}
+            unit = #{unit}, partner =#{partner}
+        where id =#{id}
+
+    </update>
+
+    <insert id="create" parameterType="IngredientDTO">
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select ingredient_seq.nextval from dual
+        </selectKey>
+        insert into ingredient (id,name,quantity,price ,unit,partner)
+        values (#{id},#{name},#{quantity},#{price},#{unit},#{partner})
+
+    </insert>
+    <delete id="ingredientDelAll" parameterType="arraylist">
+        delete from Ingredient where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>
