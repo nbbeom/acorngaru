@@ -3,4 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>ingredient-jsp</servlet-name>
+        <jsp-file>/WEB-INF/ingredient/ingredient.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ingredient-jsp</servlet-name>
+        <url-pattern>/ingredient</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>order-jsp</servlet-name>
+        <jsp-file>/WEB-INF/ingredient/order.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>order-jsp</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>partner-jsp</servlet-name>
+        <jsp-file>/WEB-INF/ingredient/partner.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>partner-jsp</servlet-name>
+        <url-pattern>/partner</url-pattern>
+    </servlet-mapping>
 </web-app>

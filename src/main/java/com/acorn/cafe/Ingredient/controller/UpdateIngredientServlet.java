@@ -3,6 +3,7 @@ package com.acorn.cafe.Ingredient.controller;
 import com.acorn.cafe.Ingredient.dto.IngredientDTO;
 import com.acorn.cafe.Ingredient.service.IngredientService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +27,10 @@ public class UpdateIngredientServlet extends HttpServlet {
         dto.setUnit(request.getParameter("update_unit"));
         System.out.println(dto);// "10,20,21"
 
-        response.sendRedirect("Ingredient.jsp");
-
+        String ingredientUrl= "/WEB-INF/ingredient/ingredient.jsp";
+        RequestDispatcher dis = null;
+        dis = request.getRequestDispatcher(ingredientUrl);
+        dis.forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

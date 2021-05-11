@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
    
    <typeAliases>
     <typeAlias type="com.acorn.cafe.Ingredient.dto.IngredientDTO" alias="IngredientDTO"/>
+    <typeAlias type="com.acorn.cafe.Ingredient.dto.PartnerDTO" alias="PartnerDTO"/>
    </typeAliases>
    
 	<environments default="development">
@@ -23,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<mappers>
 		<mapper resource="com/acorn/cafe/Ingredient/config/IngredientMapper.xml" />
+		<mapper resource="com/acorn/cafe/Ingredient/config/PartnerMapper.xml" />
 	</mappers>
 </configuration>
 

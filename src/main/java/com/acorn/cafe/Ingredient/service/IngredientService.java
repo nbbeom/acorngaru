@@ -7,6 +7,7 @@ import com.acorn.cafe.Ingredient.config.MySqlSessionFactory;
 
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -17,19 +18,6 @@ public class IngredientService {
         dao = new IngredientDAO();
     }
 
-    public List<IngredientDTO> selectAll(){
-        SqlSession s = MySqlSessionFactory.getSession();
-        List<IngredientDTO> list =null;
-
-        try{
-            list =dao.selectAll(s);
-        }finally {
-            s.close();
-        }
-
-        return list;
-
-    }
     public int IngredientDelete(int num) {
         SqlSession session = MySqlSessionFactory.getSession();
         int n = 0;
@@ -70,5 +58,41 @@ public class IngredientService {
             session.close();
         }
         return n;
+    }
+
+    public int countIngredientByName(String name) {
+        SqlSession s = MySqlSessionFactory.getSession();
+        int amount;
+        try{
+            IngredientDAO dao = new IngredientDAO();
+            System.out.println("service");
+            amount = dao.countIngredientByName(s,name);
+        } finally {
+            s.close();
+        }
+        return amount;
+    }
+
+    public List<IngredientDTO> searchIngredient(HashMap<String, String> map) {
+        SqlSession s = MySqlSessionFactory.getSession();
+        List<IngredientDTO> searchIngredient = null;
+        try{
+            IngredientDAO dao =new IngredientDAO();
+            searchIngredient =dao.searchIngredient(s,map);
+        }finally {
+            s.close();
+        }
+        return searchIngredient;
+    }
+    public List<IngredientDTO> allIngredient() {
+        SqlSession s = MySqlSessionFactory.getSession();
+        List<IngredientDTO> searchIngredient = null;
+        try{
+            IngredientDAO dao =new IngredientDAO();
+            searchIngredient =dao.allIngredient(s);
+        }finally {
+            s.close();
+        }
+        return searchIngredient;
     }
 }

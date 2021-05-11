@@ -31,8 +31,11 @@ public class DeleteIngredientServlet extends HttpServlet {
         int n = service.IngredientDelete(Integer.parseInt(data));  //개별 데이삭제 완료
         System.out.println(n);
 
-        response.sendRedirect("Ingredient.jsp");
 
+        String ingredientUrl= "/WEB-INF/ingredient/ingredient.jsp";
+        RequestDispatcher dis = null;
+        dis = request.getRequestDispatcher(ingredientUrl);
+        dis.forward(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

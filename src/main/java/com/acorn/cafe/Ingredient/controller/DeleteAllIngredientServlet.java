@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,9 +35,10 @@ public class DeleteAllIngredientServlet extends HttpServlet {
         int n = service.IngredientDelAll(list);
         System.out.println("실행된 레코드갯수: "+n);
 
-        response.sendRedirect("Ingredient.jsp");
-
-
+        String ingredientUrl= "/WEB-INF/ingredient/ingredient.jsp";
+        RequestDispatcher dis = null;
+        dis = request.getRequestDispatcher(ingredientUrl);
+        dis.forward(request,response);
     }
 
 

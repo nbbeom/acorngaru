@@ -8,10 +8,24 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function(){
+            $.ajax({
+                type: "get",
+                url: "IngredientAllServlet",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success : function(data, status, xhr) {
+                    for ( var i in data.items) {
+                        var dto = data.items[i];
+                        console.log(dto.name)
+                        var html = "";
+                        html += '<option value="'+dto.name+'">'+dto.name+'</option>';
+                        $("#select_ingre").append(html);
+                    }
+                }
+            }) //select all  -> 데이터 가져오는 용도
         //form 서브밋
         $(".order").on("click",function(){
 
@@ -36,7 +50,6 @@
 
         });//end form
 
-
     });//end fn
 </script>
 <div class="wrapper">
@@ -59,10 +72,7 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <%
-            IngredientService service = new IngredientService();
-            List<IngredientDTO> dto =service.selectAll();
-        %>
+
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
@@ -80,15 +90,11 @@
                         <tbody>
                         <tr>
                             <td>
-                                <select class="form-select" aria-label="Default select example">
+                                <select id="select_ingre" class="form-select" aria-label="Default select example">
                                     <option selected>추가하고 싶은 재고를 선택하세요</option>
-                                    <%
-                                        for (IngredientDTO a : dto){
-                                    %>
-                                    <option value="<%=a.getId()%>>"><%=a.getName()%></option>
-                                    <%
-                                        }
-                                    %>
+
+
+
                                 </select>
                             </td>
                             <td>

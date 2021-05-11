@@ -3,14 +3,27 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.cafe.Ingredient.config.IngredientMapper">
- 
- 
-     <select id="selectAll" resultType="IngredientDTO"
-    parameterType="string">
-         select id, name, quantity, price,unit, partner
-         from Ingredient
-        order by id
+
+    <select id="searchIngredient" parameterType="hashmap" resultType="IngredientDTO">
+        select * from (
+                          SELECT ROW_NUMBER() OVER (ORDER BY  id ASC) NUM, A.*
+                          FROM  ingredient A
+                          WHERE name LIKE '%' || #{name} || '%'
+                          ORDER BY id ASC
+                      )
+        where NUM BETWEEN #{first} and #{last}
     </select>
+
+    <select id="countIngredientByName" parameterType="String" resultType="int">
+        select count (*)
+        from ingredient
+        where name LIKE '%'|| #{name} || '%'
+    </select>
+
+    <select id="ingredientAllList" resultType="IngredientDTO">
+        select * from ingredient order by id
+    </select>
+
 
     <delete id="ingredientDel" parameterType="int">
         delete
@@ -34,10 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values (#{id},#{name},#{quantity},#{price},#{unit},#{partner})
 
     </insert>
+
     <delete id="ingredientDelAll" parameterType="arraylist">
         delete from Ingredient where id in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
     </delete>
+
 </mapper>
